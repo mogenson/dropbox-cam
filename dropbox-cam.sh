@@ -1,23 +1,14 @@
 #!/bin/bash
 
-IMAGE_DIR="/home/pi/images/"
+HOSTS_FILE="$HOME/.dropbox-cam-hosts"
+IMAGE_DIR="$HOME/images/"
 IMAGE_NAME="image-$(date +%Y-%m-%d-%R).jpg"
 
-# test for Amy's phone
-ping -c2 SAMSUNG-SM-G930A.lan
-[ $? -eq 0 ] && exit
-
-# test for Mike's phone
-ping -c2 android-68b316b31938f1ad.lan
-[ $? -eq 0 ] && exit
-
-# test for Amy's computer
-ping -c2 Amys-MBP-2.lan
-[ $? -eq 0 ] && exit
-
-# test for Mike's computer
-ping -c2 compooper.lan
-[ $? -eq 0 ] && exit
+while read hostname
+do
+    # if ping is successful exit script
+    ping -q -c1 $hostname && exit
+done < $HOSTS_FILE
 
 raspistill -n -rot 90 -o $IMAGE_DIR$IMAGE_NAME
 
