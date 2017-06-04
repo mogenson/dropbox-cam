@@ -2,7 +2,7 @@
 
 HOSTS_FILE="/home/pi/.dropbox-cam-hosts"
 IMAGE_DIR="/home/pi/images/"
-IMAGE_NAME="image-$(date +%Y-%m-%d-%R).jpg"
+IMAGE_NAME="image-$(date +%Y-%m-%d-%H-%M).jpg"
 IMAGE_DIR_SIZE=$(echo 24G | numfmt --from=iec)
 
 while read hostname
