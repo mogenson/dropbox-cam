@@ -1,6 +1,7 @@
 #!/bin/bash
 
 HOSTS_FILE="/home/pi/.dropbox-cam-hosts"
+UPLOAD_PATH=$(dirname $0)
 IMAGE_DIR="/home/pi/images/"
 IMAGE_NAME="image-$(date +%Y-%m-%d-%H-%M).jpg"
 IMAGE_DIR_SIZE=$(echo 24G | numfmt --from=iec)
@@ -15,7 +16,7 @@ done < $HOSTS_FILE
 raspistill -n -rot 90 -o $IMAGE_DIR$IMAGE_NAME
 
 # upload that image to dropbox
-dropbox_uploader.sh upload $IMAGE_DIR$IMAGE_NAME "/image.jpg"
+$UPLOAD_PATH/dropbox_uploader.sh upload $IMAGE_DIR$IMAGE_NAME "/image.jpg"
 
 # delete the oldest file in IMAGE_DIR until the directory size is
 # less than or equal to IMAGE_DIR_SIZE
